@@ -1,0 +1,10 @@
+
+//create a provider
+//create consumer in each 
+
+provider------component1--------(firebase init here)
+------component2--------(firebase init here)
+consumer------component3--------(firebase init here)
+------component4--------(firebase init here)
+------component5--------(firebase init here)
+consumer------component6--------(firebase init here)
