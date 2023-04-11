@@ -2,10 +2,12 @@ import { useContext, useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FirebaseContext from "../context/firebase"
 import {Link} from 'react-router-dom'
+import * as ROUTES from '../constants/routes';
 
 export default function Login()
 {
 const history=useNavigate()
+
 const {firebase}=useContext(FirebaseContext)
 
 const [emailAddress,setEmailAddress]=useState('');
@@ -14,7 +16,20 @@ const [password,setPassword]=useState('');
 const [error,setError]=useState('')
 const isInvalid = password ===''||emailAddress===''
 
-const handleLogin=()=>{};
+const handleLogin = async (event) => {
+  event.preventDefault();
+
+  try {
+    await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+    history.push(ROUTES.DASHBOARD);
+  } 
+  catch (error) {
+    //set email and password back to empty
+    setEmailAddress('');
+    setPassword('');
+    setError(error.message);
+  }
+};
 
 useEffect(()=>{
 document.title='Login-instagram'
@@ -103,7 +118,7 @@ return(
             <input aria-label="Enter your email address"
               type="text"
               placeholder="Email address"
-              className="text-sm text-gray-base w-full mr-3 py-10 px-4 h-2 border border-gray-primary rounded mb-2"
+              className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target }) => setEmailAddress(target.value)}
               value={emailAddress}
             />
@@ -118,7 +133,7 @@ return(
             <button
               disabled={isInvalid}
               type="submit"
-              className={`bg-blue-500 text-white w-full rounded h-10 font-bold ${isInvalid && 'opacity-50'}`}
+              className={`bg-blue-medium text-white w-full rounded h-10 font-bold ${isInvalid && 'opacity-50'}`}
             >
               Login
             </button>

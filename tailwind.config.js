@@ -3,8 +3,28 @@ module.exports = {
   content: ["src/**/*.{html,js}"],
   theme: {
     extend: {},
-    colors:{white:'#ffff'}
-    
+    colors:{'white':'#ffffff',
+    blue:{
+      medium:"#005c98"
+    },
+    black:{
+      light:"005c98",
+      faded:"00000098"
+    },
+      gray: {
+        base: '#616161',
+        background: '#fafafa',
+        primary: '#dbdbdb'
+      },
+      red: {
+        primary: '#ed4956'
+      }
+    }
   },
-  plugins: [],
+  variants: {
+    extend: {
+      display: ['group-hover']
+    }
+  },
+  plugins: []
 }

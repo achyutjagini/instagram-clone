@@ -21,6 +21,7 @@ import * as ROUTES from './constants/routes'
 //in react can use lazy loading
 
 const Login=lazy(()=>import('./pages/login'))
+const SignUp=lazy(()=>import('./pages/sign-up'))
 
 function App() {
   return (
@@ -30,10 +31,17 @@ function App() {
             <Suspense fallback={<>...</>}>
               <p>abc</p>
             </Suspense>}/>
-    <Route path={ROUTES.LOGIN} element={
+
+             <Route path={ROUTES.LOGIN} element={
             <Suspense fallback={<>...</>}>
               <Login />
             </Suspense>}/>
+    
+            <Route path={ROUTES.SIGN_UP} element={
+            <Suspense fallback={<>...</>}>
+              <SignUp />
+            </Suspense>}/>
+    
     
     </Routes>
     </Router>
