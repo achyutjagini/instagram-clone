@@ -6,7 +6,7 @@ import * as ROUTES from '../constants/routes';
 
 export default function Login()
 {
-const history=useNavigate()
+const navigate=useNavigate()
 
 const {firebase}=useContext(FirebaseContext)
 
@@ -21,7 +21,7 @@ const handleLogin = async (event) => {
 
   try {
     await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
-    history.push(ROUTES.DASHBOARD);
+    navigate(ROUTES.DASHBOARD);
   } 
   catch (error) {
     //set email and password back to empty

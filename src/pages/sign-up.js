@@ -2,9 +2,10 @@ import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 import FirebaseContext from '../context/firebase';
 import * as ROUTES from '../constants/routes';
+import { doesUsernameExist } from '../services/firebase';
 
 export default function SignUp() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const { firebase } = useContext(FirebaseContext);
 
   
@@ -18,9 +19,7 @@ export default function SignUp() {
 
   const [error, setError] = useState('');
   const isInvalid = password === '' || emailAddress === '';
-  const handleSignUp = async (event) => {
-  }
- /* 
+ 
   const handleSignUp = async (event) => {
     event.preventDefault();
 
@@ -39,9 +38,7 @@ export default function SignUp() {
         });
 
         // firebase user collection (create a document)
-        await firebase
-          .firestore()
-          .collection('users')
+        await firebase.firestore().collection('users')
           .add({
             userId: createdUserResult.user.uid,
             username: username.toLowerCase(),
@@ -52,19 +49,21 @@ export default function SignUp() {
             dateCreated: Date.now()
           });
 
-        history.push(ROUTES.DASHBOARD);
-      } catch (error) {
+        navigate(ROUTES.DASHBOARD);
+      } 
+      catch (error) {
         setFullName('');
         setEmailAddress('');
         setPassword('');
         setError(error.message);
       }
-    } else {
+    } 
+    else {
       setUsername('');
       setError('That username is already taken, please try another.');
     }
   };
-*/
+
   useEffect(() => {
     document.title = 'Sign Up - Instagram';
   }, []);
