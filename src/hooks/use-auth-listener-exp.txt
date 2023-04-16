@@ -1,0 +1,23 @@
+
+This code defines a custom React Hook named useAuthListener.
+Custom hooks are a way
+to reuse logic
+across multiple components in a React application.
+
+The useAuthListener hook uses the useState hook to define a user state variable and the 
+useContext hook to get access to the FirebaseContext object, which contains a reference 
+to the Firebase authentication service. The user state variable is initialized with the 
+value stored in the browser's localStorage object under the key authUser.
+
+The useEffect hook is used to add an authentication state change listener to the
+Firebase authentication service. This listener is triggered whenever the user's
+authentication state changes, such as when they log in or log out. Inside the
+listener callback function, the authUser parameter is used to update the user
+state variable and store it in localStorage. If the authUser parameter is null,
+the user state variable is set to null and the authUser key is
+removed from localStorage.
+
+Finally, the useAuthListener hook returns an object with a single property
+named user, which contains the current value of the user state variable.
+Components that use this hook can get access to the current 
+authenticated user by calling useAuthListener().user.
