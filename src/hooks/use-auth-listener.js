@@ -10,8 +10,14 @@ export default function useAuthListener()
         const listener = firebase.auth().onAuthStateChanged((authUser) => {
           if (authUser) {
             // we have a user...therefore we can store the user in localstorage
+
+            //JSON.stringify conv to json string
+            //JSON stored in local storage
             localStorage.setItem('authUser', JSON.stringify(authUser));
+
+            //js object stored in state
             setUser(authUser);
+
           } else {
             // we don't have an authUser, therefore clear the localstorage
             localStorage.removeItem('authUser');

@@ -21,3 +21,88 @@ Finally, the useAuthListener hook returns an object with a single property
 named user, which contains the current value of the user state variable.
 Components that use this hook can get access to the current 
 authenticated user by calling useAuthListener().user.
+
+
+In the useAuthListener custom hook, the line const 
+listener = firebase.auth().onAuthStateChanged((authUser) => {...}); creates a
+ listener that listens for changes in the authentication state of the Firebase app.
+
+The onAuthStateChanged method takes a callback function that will be called
+whenever the authentication state changes. This callback function takes
+
+an authUser parameter, which represents the user who is currently
+signed in, or null if no user is signed in.
+
+In this case, the listener variable is used to store the reference
+ to the callback function returned by the onAuthStateChanged method.
+  This allows us to remove the listener later when the component
+ unmounts or when the firebase dependency changes.
+
+Inside the callback function, if authUser is not null, the user
+ is signed in, and their information is stored in the localStorage 
+ using localStorage.setItem('authUser', JSON.stringify(authUser));, 
+ so that it can be retrieved later if the user refreshes the page or
+  returns to the site at a later time.
+
+Then the authUser object is stored in the user state
+ variable using setUser(authUser);.
+
+If authUser is null, the user is signed out, so the
+ localStorage is cleared using localStorage.removeItem('authUser');
+  and the user state variable is set to null using setUser(null);.
+
+Overall, this custom hook allows us to persist the authentication
+ state of the user across page refreshes or when the user navigates
+  away from the site, by storing the user information in
+   localStorage. It also allows us to listen for changes 
+   in the authentication state using the Firebase Authentication 
+   API and update the user state variable accordingly
+
+
+Yes, authUser is a JavaScript object that contains information 
+about the signed-in user, such as their user ID (UID), email address, and display name.
+
+When a user signs in to Firebase Authentication, the Firebase 
+Authentication API returns an object representing the signed-in user. 
+This object is commonly referred to as an "auth user object".
+
+The authUser object passed to the onAuthStateChanged callback
+function is an instance of the firebase.User class, which 
+is provided by the Firebase Authentication library for JavaScript. 
+This object contains various properties and methods that allow you
+to access and manipulate the user's information and authentication state.
+
+You can access the properties of the authUser object using
+dot notation, for example, authUser.uid, authUser.email,
+authUser.displayName, etc. These properties contain the 
+information about the signed-in user that you 
+can use in your application.
+
+
+
+localStorage.setItem() can only store data in the form of strings. 
+Therefore, when we want to store a JavaScript object or array in
+ localStorage, we need to convert it to a string first.
+
+The JSON.stringify() method converts a JavaScript object or array 
+into a JSON string representation that can be stored in localStorage. 
+This method serializes the object or array into a string that can be
+ easily stored and retrieved from localStorage.
+
+In the useAuthListener custom hook, we use JSON.stringify(authUser) 
+to convert the authUser object (which is returned by the Firebase
+ Authentication API) into a JSON string representation. This string 
+ representation can be stored in localStorage using localStorage.setItem(),
+ which takes two parameters: a key and a value.
+
+The key is a string that serves as the name of the item we
+ want to store in localStorage, while the value is the string 
+ representation of the object or array we want to store. In 
+ this case, the key is 'authUser' and the value is the JSON 
+ string representation of the authUser object.
+
+Later, when we retrieve the authUser information from 
+localStorage using JSON.parse(localStorage.getItem('authUser')),
+ we use the JSON.parse() method to convert the JSON string back
+  into a JavaScript object. This method deserializes the JSON
+   string and reconstructs the original object or array.
