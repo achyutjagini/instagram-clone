@@ -15,6 +15,8 @@ URL path matches /login.*/
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import * as ROUTES from './constants/routes'
+import useAuthListener from "./hooks/use-auth-listener";
+import UserContext from "./context/user";
 //import { Switch } from 'react-router-dom'
 //if login only want to load login bundle
 //if signup only want to load signup
@@ -25,8 +27,12 @@ const SignUp=lazy(()=>import('./pages/sign-up'))
 const NotFound=lazy(()=>import('./pages/not-found'))
 const Dashboard=lazy(()=>import('./pages/dashboard'))
 
+
 function App() {
-  return (
+const {user}=useAuthListener()
+
+return (
+<UserContext.Provider value={{user}}>
     <Router>
     <Routes>
     <Route path={ROUTES.DASHBOARD} element={
@@ -51,6 +57,8 @@ function App() {
     
     </Routes>
     </Router>
+    
+    </UserContext.Provider>
   );
 }
 

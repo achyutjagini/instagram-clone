@@ -1,4 +1,3 @@
-
 This code defines a custom React Hook named useAuthListener.
 Custom hooks are a way
 to reuse logic
@@ -87,7 +86,7 @@ Therefore, when we want to store a JavaScript object or array in
 The JSON.stringify() method converts a JavaScript object or array 
 into a JSON string representation that can be stored in localStorage. 
 This method serializes the object or array into a string that can be
- easily stored and retrieved from localStorage.
+easily stored and retrieved from localStorage.
 
 In the useAuthListener custom hook, we use JSON.stringify(authUser) 
 to convert the authUser object (which is returned by the Firebase
