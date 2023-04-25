@@ -51,7 +51,7 @@ export default function Header()
 
           </Link>
 
-          <button type="button" title="Sign out" onClick={()=>firebase.auth.signOut()}
+          <button type="button" title="Sign out" onClick={()=>firebase.auth().signOut()}
         onKeyDown={
             (e)=>{
                 if( e.key==='Enter'){
@@ -76,11 +76,12 @@ export default function Header()
         />
       </svg>
         </button>
+
       <div className="flex items-center cursor-pointer">
-        <Link to {`/p/${user.displayName}`}>
+        <Link to= {`/p/${user.displayName}`}>
           <img className="rounded-full h-8 w-8 flex"
-          src={`/ima`}
-          
+          src={`/images/avatars/karl.jpg`}
+          alt={`${user.displayName} profile `}
           />
         </Link>
         </div>    
@@ -88,6 +89,17 @@ export default function Header()
 
         ):(
         <>
+        <Link to ={ROUTES.LOGIN} >
+          <button type="button"
+          className="bg-blue-medium font-bold text-sm rounded text-white w-20 h-8"
+          >Log In</button>
+        </Link>
+        
+        <Link to ={ROUTES.SIGN_UP}>
+        <button type="button"
+          className=" font-bold text-sm rounded w-20 h-8  text-blue-medium" 
+          >Sign Up</button>
+        </Link>
 
         </>
         )
